@@ -24,9 +24,6 @@ function SocialButtons() {
                 <a href="https://github.com/andrewhunnter" className="social-button github" target="_blank" rel="noopener noreferrer">
                     <span className="iconify" data-icon="mdi:github"></span>
                 </a>
-                <a href="https://carcodes.xyz" className="social-button qr-code" target="_blank" rel="noopener noreferrer">
-                    <span className="iconify" data-icon="fa-solid:qrcode"></span>
-                </a>
             </div>
         </div>
     );

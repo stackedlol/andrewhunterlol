@@ -8,9 +8,9 @@ function Timeline() {
     const experiences = [
         {
             date: 'CURRENT',
-            title: 'serial founder',
-            company: 'self-employed',
-            description: 'Developed full-stack applications utilizing NextJS, Tailwind CSS, Expo Go, Cursor IDE, and other modern technologies to deliver exceptional digital experiences for clients.',
+            title: 'Frontend Engineer',
+            company: 'nura.construction',
+            description: 'Built authentication systems and core components to enhance the visual side of real estate intelligence.',
             icon: <FaLaptopCode style={{ color: '#FFB800' }} />,
             color: 'rgba(255, 184, 0, 0.1)'
         },
