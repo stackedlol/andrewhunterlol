@@ -50,7 +50,6 @@ function Navbar() {
                 </button>
                 <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
                     <li><Link to="/" className="nav-link" onClick={closeMenu}>home</Link></li>
-                    <li><Link to="/about" className="nav-link" onClick={closeMenu}>about</Link></li>
                 </ul>
             </nav>
         </header>

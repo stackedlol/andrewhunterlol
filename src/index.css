@@ -34,9 +34,15 @@
 
 body {
     font-family: 'Montserrat', Arial, sans-serif;
-    background-color: var(--primary-bg);
+    background-color: transparent;
     color: var(--primary-text);
     line-height: 1.6;
+}
+
+#root {
+    background: transparent;
+    position: relative;
+    z-index: 1;
 }
 
 h1, h2, h3 {
@@ -103,9 +109,10 @@ p {
   align-items: center;
   padding: 2rem;
   text-align: center;
-  opacity: 1;  /* Changed from 0 */
-  transform: translateY(0);  /* Changed from translateY(20px) */
+  opacity: 1;
+  transform: translateY(0);
   transition: var(--transition);
+  background: transparent;
 }
 
 .section.active {

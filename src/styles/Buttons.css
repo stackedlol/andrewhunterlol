@@ -2,103 +2,59 @@
 .social-buttons {
     display: flex;
     justify-content: center;
-    gap: 0.6rem;
-    margin: 0.5rem 0;
+    gap: 1.2rem;
+    margin: 0;
 }
 
 .social-button {
-    width: auto;
-    height: auto;
-    background: none;
-    border: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: var(--transition);
-    position: relative;
-    padding: 0.5rem;
-}
-
-.social-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50%;
-    transform: scale(0);
-    transition: transform 0.3s ease;
-    z-index: -1;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
 }
 
 .social-button:hover {
     transform: translateY(-3px);
-    box-shadow: none;
-    background: none;
-}
-
-.social-button:hover::before {
-    transform: scale(1);
 }
 
 .social-button .iconify {
-    font-size: 2rem;
-    color: var(--primary-text);
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
     transition: all 0.3s ease;
 }
 
-/* Add subtle color to each social icon on hover */
-.social-button.twitter:hover .iconify {
+.social-button:hover .iconify {
     color: #ffffff;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
 }
 
+/* Color on hover for each platform */
 .social-button.instagram:hover .iconify {
     color: #E1306C;
-    filter: drop-shadow(0 0 5px rgba(225, 48, 108, 0.3));
 }
 
 .social-button.linkedin:hover .iconify {
     color: #0077B5;
-    filter: drop-shadow(0 0 5px rgba(0, 119, 181, 0.3));
 }
 
 .social-button.github:hover .iconify {
-    color: #6e5494;
-    filter: drop-shadow(0 0 5px rgba(110, 84, 148, 0.3));
+    color: #a78bfa;
 }
 
-/* Add these new styles for Telegram and TikTok */
 .social-button.telegram:hover .iconify {
     color: #0088cc;
-    filter: drop-shadow(0 0 5px rgba(0, 136, 204, 0.3));
 }
 
 .social-button.tiktok:hover .iconify {
     color: #ff0050;
-    filter: drop-shadow(0 0 5px rgba(255, 0, 80, 0.3));
 }
 
+/* Container - just for layout */
 .social-buttons-container {
     text-align: center;
-    margin-bottom: 1rem;
-}
-
-.social-heading {
-    font-size: 1.2rem;
-    color: var(--primary-text);
-    margin-bottom: 0.5rem;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes gradientAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    margin-top: 0.8rem;
+    display: inline-block;
 }
