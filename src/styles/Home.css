@@ -66,7 +66,7 @@ h1 {
 .subtitle {
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.1rem;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.8rem;
     opacity: 1;
     color: #FFFFFF;
     font-weight: 400;
@@ -335,9 +335,9 @@ h1 {
     font-weight: 400;
     letter-spacing: 0;
     text-transform: lowercase;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     font-family: 'Times New Roman', Times, serif;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
     font-style: normal;
 }
 
@@ -351,7 +351,7 @@ h1 {
 .experience-list {
     list-style: none;
     padding: 0;
-    margin: 0.8rem 0 0 0;
+    margin: 1.2rem 0 0 0;
     text-align: left;
     font-family: 'Times New Roman', Times, serif;
     font-size: 1rem;
@@ -362,7 +362,7 @@ h1 {
 .experience-list li {
     position: relative;
     padding-left: 1rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.7rem;
     line-height: 1.4;
     text-transform: lowercase;
 }
@@ -383,4 +383,10 @@ h1 {
 
 .experience-list a:hover {
     opacity: 0.7;
+}
+
+.experience-list .underline-white {
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }

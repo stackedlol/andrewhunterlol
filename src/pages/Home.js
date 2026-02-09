@@ -294,6 +294,9 @@ function Home() {
                             <li>
                                 founder of <a href="https://carcodes.xyz" target="_blank" rel="noopener noreferrer">carcodes.xyz</a> — a b2c web app built with nextjs for car enthusiasts that was rug pulled
                             </li>
+                            <li>
+                                creator of sandbox ui — a react component library, try it with <span className="underline-white">npx create-sandbox-ui@latest my-app</span>
+                            </li>
                         </ul>
                         
                         <SocialButtons />

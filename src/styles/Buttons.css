@@ -31,6 +31,10 @@
     color: #ffffff;
 }
 
+.social-button.twitter .iconify {
+    font-size: 1.15rem;
+}
+
 /* Color on hover for each platform */
 .social-button.instagram:hover .iconify {
     color: #E1306C;
