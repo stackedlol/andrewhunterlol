@@ -289,7 +289,10 @@ function Home() {
                         
                         <ul className="experience-list">
                             <li>
-                                full stack engineer at <a href="https://www.nura.construction" target="_blank" rel="noopener noreferrer">nura.construction</a> — building an intelligence layer for real estate developers
+                                cofounder of <a href="https://petal.fyi" target="_blank" rel="noopener noreferrer">petal.fyi</a> — ai for real estate developers
+                            </li>
+                            <li>
+                                was full stack at <a href="https://www.nura.construction" target="_blank" rel="noopener noreferrer">nura.construction</a> — built the mvp, got no equity
                             </li>
                             <li>
                                 founder of <a href="https://carcodes.xyz" target="_blank" rel="noopener noreferrer">carcodes.xyz</a> — a b2c web app built with nextjs for car enthusiasts that was rug pulled
