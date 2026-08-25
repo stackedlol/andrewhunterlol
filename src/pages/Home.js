@@ -285,11 +285,9 @@ function Home() {
                 <section id="home" className="section" style={{ background: 'transparent' }}>
                     <div className="home-content" style={{ background: 'transparent' }}>
                         <h1 className="home-title">andrewhunter</h1>
-                        <p className="subtitle">building on the internet</p>
-                        
                         <ul className="experience-list">
                             <li>
-                                cofounder of <a href="https://www.rlty.ai/" target="_blank" rel="noopener noreferrer">rlty.ai</a> — a forward deployed consultancy for the whole real estate value chain
+                                cofounder of <a href="https://www.rlty.ai/" target="_blank" rel="noopener noreferrer">rlty.ai</a> — a forward deployed agency for the whole real estate value chain
                             </li>
                             <li>
                                 was a founding engineer at <a href="https://www.nura.construction" target="_blank" rel="noopener noreferrer">nura.construction</a> — built the mvp to production, got no equity
