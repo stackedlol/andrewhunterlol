@@ -292,9 +292,6 @@ function Home() {
                                 cofounder of <a href="https://www.rlty.ai/" target="_blank" rel="noopener noreferrer">rlty.ai</a> — a forward deployed consultancy for the whole real estate value chain
                             </li>
                             <li>
-                                cofounder of <a href="https://petal.fyi" target="_blank" rel="noopener noreferrer">petal.fyi</a> — ai for real estate developers
-                            </li>
-                            <li>
                                 was a founding engineer at <a href="https://www.nura.construction" target="_blank" rel="noopener noreferrer">nura.construction</a> — built the mvp to production, got no equity
                             </li>
                             <li>
