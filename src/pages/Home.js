@@ -1,7 +1,9 @@
 // src/pages/Home.js
 import React, { useEffect, useRef } from 'react';
-import SocialButtons from '../components/SocialButtons';
+import { RltyLogo, HausLogo, NuraLogo, VolundLogo } from '../components/CompanyLogos';
 import '../styles/Home.css';
+
+const logoMask = `url("${process.env.PUBLIC_URL}/ANDREW%20LOGO.png")`;
 
 // Perlin noise implementation
 class PerlinNoise {
@@ -68,7 +70,6 @@ function Home() {
     const optRef = useRef(null);
     const perlinRef = useRef(null);
     const timeRef = useRef(0);
-
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -284,20 +285,32 @@ function Home() {
             }}>
                 <section id="home" className="section" style={{ background: 'transparent' }}>
                     <div className="home-content" style={{ background: 'transparent' }}>
-                        <h1 className="home-title">andrewhunter</h1>
-                        <ul className="experience-list">
-                            <li>
-                                cofounder of <a href="https://www.rlty.ai/" target="_blank" rel="noopener noreferrer">rlty.ai</a> — a forward deployed agency for the whole real estate value chain
-                            </li>
-                            <li>
-                                was a founding engineer at <a href="https://www.nura.construction" target="_blank" rel="noopener noreferrer">nura.construction</a> — built the mvp to production, got no equity
-                            </li>
-                            <li>
-                                founder of <a href="https://carcodes.xyz" target="_blank" rel="noopener noreferrer">carcodes.xyz</a> — a b2c web app built with nextjs for car enthusiasts that was rug pulled
-                            </li>
-                        </ul>
-                        
-                        <SocialButtons />
+                        <div className="home-row">
+                            <div className="home-logo" role="img" aria-label="andrew hunter logo" style={{ WebkitMaskImage: logoMask, maskImage: logoMask }} />
+                            <ul className="experience-list">
+                                <li className="experience-heading">
+                                    <h1 className="home-title">andrew hunter</h1> — <span className="home-subtitle">chasing the frontier</span>
+                                </li>
+                                <li>
+                                    managing partner at <a href="https://www.rlty.ai/" target="_blank" rel="noopener noreferrer"><RltyLogo />rlty.ai</a> — a forward deployed agency for the whole real estate value chain
+                                </li>
+                                <li>
+                                    deployed <a href="https://www.with.haus" target="_blank" rel="noopener noreferrer"><HausLogo />with.haus</a> — an ai operations company for staging operations
+                                </li>
+                                <li>
+                                    founding engineer at <a href="https://www.nura.construction" target="_blank" rel="noopener noreferrer"><NuraLogo />nura.construction</a> — built the mvp to production, got no equity
+                                </li>
+                                <li>
+                                    founding design partner at <span className="company-name" role="img" aria-label="vølund"><VolundLogo /></span> — building an agnostic design engineering firm for the digital frontier to the physical landscape
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className="home-contact">
+                            <span>[<a href="mailto:andrew@rlty.ai">andrew@rlty.ai</a>]</span>
+                            <span>[<a href="https://x.com/stackedlol" target="_blank" rel="noopener noreferrer">x</a>]</span>
+                            <span>[<a href="https://calendly.com/realandrewhunter/rlty-partners-intro" target="_blank" rel="noopener noreferrer">book call</a>]</span>
+                        </div>
                     </div>
                 </section>
             </main>
