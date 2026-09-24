@@ -65,196 +65,129 @@ class PerlinNoise {
 
 function Home() {
     const canvasRef = useRef(null);
-    const animationRef = useRef(null);
-    const particlesRef = useRef([]);
-    const optRef = useRef(null);
-    const perlinRef = useRef(null);
-    const timeRef = useRef(0);
+
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        
+
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
-        // Initialize Perlin noise
-        perlinRef.current = new PerlinNoise();
-
-        const rand = (v1, v2) => Math.floor(v1 + Math.random() * (v2 - v1));
+        const perlin = new PerlinNoise();
+        const rand = (v1, v2) => v1 + Math.random() * (v2 - v1);
         const deg = (a) => Math.PI / 180 * a;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // Options - using white/grey colors instead of HSL
-        optRef.current = {
-            particles: window.innerWidth > 500 ? 300 : 150,
-            noiseScale: 0.003,
+        // Each canvas pixel covers PIXEL x PIXEL screen pixels, so the dither reads as grain
+        const PIXEL = 2;
+        // 4x4 ordered dither thresholds
+        const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16);
+
+        const opt = {
+            lines: window.innerWidth > 500 ? 48 : 24,
+            noiseScale: 0.006,
             angle: deg(-90),
-            strokeWeight: 0.8,
-            tail: 85,
+            alpha: 44, // 0-255, kept faint so the text sits on top
+            drift: 0.0015,
+            fps: 30,
+        };
+        const color = ((opt.alpha << 24) | 0x00ffffff) >>> 0;
+
+        let w = 0;
+        let h = 0;
+        let image = null;
+        let buf = null;
+        let seeds = [];
+        let time = 0;
+        let frame = null;
+        let last = 0;
+
+        // Jittered grid of seed points so lines spread evenly but not uniformly
+        const initSeeds = () => {
+            seeds = [];
+            const cols = Math.ceil(Math.sqrt(opt.lines * (w / h)));
+            const rows = Math.ceil(opt.lines / cols);
+            for (let i = 0; i < opt.lines; i++) {
+                const c = i % cols;
+                const r = Math.floor(i / cols);
+                seeds.push({
+                    x: ((c + rand(0.1, 0.9)) / cols) * w,
+                    y: ((r + rand(0.1, 0.9)) / rows) * h,
+                    phase: rand(0, 100),
+                });
+            }
         };
 
-        const opt = optRef.current;
+        // Walk the flow field from a seed until the line leaves the screen
+        const trace = (seed, dir) => {
+            const maxSteps = (w + h) * 2;
+            let x = seed.x;
+            let y = seed.y;
+            let density = 0;
+            for (let s = 0; s < maxSteps; s++) {
+                const n = perlin.noise(x * opt.noiseScale, y * opt.noiseScale, time);
+                const a = n * Math.PI * 0.5 + opt.angle;
+                x += Math.cos(a) * dir;
+                y += Math.sin(a) * dir;
 
-        // Particle class with history for longer strings
-        class Particle {
-            constructor(x, y, width, height) {
-                this.width = width;
-                this.height = height;
-                this.x = x;
-                this.y = y;
-                this.vx = 0;
-                this.vy = 0;
-                this.ax = 0;
-                this.ay = 0;
-                this.historyLength = rand(15, 40);
-                this.history = [];
-                this.randomize();
-            }
+                const px = x | 0;
+                const py = y | 0;
+                if (px < 0 || py < 0 || px >= w || py >= h) return;
 
-            randomize() {
-                this.hueSemen = Math.random();
-                this.lightness = this.hueSemen > 0.5 ? rand(60, 100) : rand(30, 60);
-                this.maxSpeed = this.hueSemen > 0.5 ? 0.8 : 0.5;
-                this.historyLength = rand(15, 40);
-            }
-
-            update() {
-                this.follow();
-
-                this.vx += this.ax;
-                this.vy += this.ay;
-
-                const p = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-                const a = Math.atan2(this.vy, this.vx);
-                const m = Math.min(this.maxSpeed, p);
-                this.vx = Math.cos(a) * m;
-                this.vy = Math.sin(a) * m;
-
-                // Store position in history
-                this.history.push({ x: this.x, y: this.y });
-                if (this.history.length > this.historyLength) {
-                    this.history.shift();
+                // How solid the line is drifts along its length, from sparse specks to near-solid
+                if ((s & 7) === 0) {
+                    density = 0.3 + 0.8 * perlin.noise(s * dir * 0.012 + seed.phase, seed.phase, time * 2);
                 }
-
-                this.x += this.vx;
-                this.y += this.vy;
-                this.ax = 0;
-                this.ay = 0;
-
-                this.edges();
-            }
-
-            follow() {
-                const noise = perlinRef.current.noise(
-                    this.x * opt.noiseScale,
-                    this.y * opt.noiseScale,
-                    timeRef.current * opt.noiseScale
-                );
-                const angle = noise * Math.PI * 0.5 + opt.angle;
-
-                this.ax += Math.cos(angle);
-                this.ay += Math.sin(angle);
-            }
-
-            edges() {
-                if (this.x < 0) {
-                    this.x = this.width;
-                    this.history = [];
-                }
-                if (this.x > this.width) {
-                    this.x = 0;
-                    this.history = [];
-                }
-                if (this.y < 0) {
-                    this.y = this.height;
-                    this.history = [];
-                }
-                if (this.y > this.height) {
-                    this.y = 0;
-                    this.history = [];
+                if (density > BAYER[((py & 3) << 2) | (px & 3)]) {
+                    buf[py * w + px] = color;
                 }
             }
+        };
 
-            render(ctx) {
-                if (this.history.length < 2) return;
-
-                ctx.beginPath();
-                ctx.moveTo(this.history[0].x, this.history[0].y);
-
-                for (let i = 1; i < this.history.length; i++) {
-                    ctx.lineTo(this.history[i].x, this.history[i].y);
-                }
-                ctx.lineTo(this.x, this.y);
-
-                // Gradient along the string
-                const alpha = this.lightness / 250;
-                ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
-                ctx.lineWidth = opt.strokeWeight;
-                ctx.lineCap = 'round';
-                ctx.lineJoin = 'round';
-                ctx.stroke();
+        const draw = () => {
+            buf.fill(0);
+            for (const seed of seeds) {
+                trace(seed, 1);
+                trace(seed, -1);
             }
-        }
+            ctx.putImageData(image, 0, 0);
+        };
 
-        // Set canvas size and init particles
         const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initParticles();
+            w = Math.ceil(window.innerWidth / PIXEL);
+            h = Math.ceil(window.innerHeight / PIXEL);
+            canvas.width = w;
+            canvas.height = h;
+            image = ctx.createImageData(w, h);
+            buf = new Uint32Array(image.data.buffer);
+            initSeeds();
+            draw();
         };
 
-        const initParticles = () => {
-            particlesRef.current = [];
-            for (let i = 0; i < opt.particles; i++) {
-                particlesRef.current.push(
-                    new Particle(
-                        Math.random() * canvas.width,
-                        Math.random() * canvas.height,
-                        canvas.width,
-                        canvas.height
-                    )
-                );
-            }
-        };
-
-        // Click handler to randomize
+        // Click to swing the flow direction and scatter the lines
         const handleClick = () => {
             opt.angle += deg(rand(30, 90)) * (Math.random() > 0.5 ? 1 : -1);
-            for (let p of particlesRef.current) {
-                p.randomize();
-            }
+            initSeeds();
+            draw();
         };
 
-        // Animation loop
-        const animate = () => {
-            timeRef.current++;
-
-            // Trail effect
-            ctx.fillStyle = `rgba(0, 0, 0, ${(100 - opt.tail) / 100})`;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.lineWidth = opt.strokeWeight;
-
-            for (let p of particlesRef.current) {
-                p.update();
-                p.render(ctx);
-            }
-
-            animationRef.current = requestAnimationFrame(animate);
+        const animate = (now) => {
+            frame = requestAnimationFrame(animate);
+            if (now - last < 1000 / opt.fps) return;
+            last = now;
+            time += opt.drift;
+            draw();
         };
 
-        // Start
         resize();
         window.addEventListener('resize', resize);
         document.body.addEventListener('click', handleClick);
-        animate();
+        if (!reduceMotion) frame = requestAnimationFrame(animate);
 
-        // Cleanup
         return () => {
             window.removeEventListener('resize', resize);
             document.body.removeEventListener('click', handleClick);
-            if (animationRef.current) {
-                cancelAnimationFrame(animationRef.current);
-            }
+            if (frame) cancelAnimationFrame(frame);
         };
     }, []);
 
@@ -272,6 +205,8 @@ function Home() {
                     height: '100%',
                     zIndex: 0,
                     display: 'block',
+                    background: '#000',
+                    imageRendering: 'pixelated',
                     pointerEvents: 'none'
                 }}
             />
@@ -301,7 +236,7 @@ function Home() {
                                     founding engineer at <a href="https://www.nura.construction" target="_blank" rel="noopener noreferrer"><NuraLogo />nura.construction</a> — built the mvp to production, got no equity
                                 </li>
                                 <li>
-                                    founding design partner at <span className="company-name" role="img" aria-label="vølund"><VolundLogo /></span> — building an agnostic design engineering firm for the digital frontier to the physical landscape
+                                    founding design partner at <span className="company-name" role="img" aria-label="vølund"><VolundLogo /></span> — building an agnostic design engineering firm for all frontiers
                                 </li>
                             </ul>
                         </div>
