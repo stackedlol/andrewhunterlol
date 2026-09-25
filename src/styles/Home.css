@@ -440,10 +440,17 @@ h1 {
 
 .experience-list li {
     position: relative;
+    white-space: nowrap;
     padding-left: 1rem;
     margin-bottom: 0.9rem;
     line-height: 1.5;
     text-transform: lowercase;
+}
+
+/* Stretch word spacing so every bullet spans the same width */
+.experience-list li:not(.experience-heading) {
+    text-align: justify;
+    text-align-last: justify;
 }
 
 .experience-list li::before {

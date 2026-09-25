@@ -1,6 +1,6 @@
 // src/pages/Home.js
 import React, { useEffect, useRef } from 'react';
-import { RltyLogo, HausLogo, NuraLogo, VolundLogo } from '../components/CompanyLogos';
+import { RltyLogo, HausLogo, NuraLogo } from '../components/CompanyLogos';
 import '../styles/Home.css';
 
 const logoMask = `url("${process.env.PUBLIC_URL}/ANDREW%20LOGO.png")`;
@@ -227,16 +227,13 @@ function Home() {
                                     <h1 className="home-title">andrew hunter</h1> — <span className="home-subtitle">chasing the frontier</span>
                                 </li>
                                 <li>
-                                    managing partner at <a href="https://www.rlty.ai/" target="_blank" rel="noopener noreferrer"><RltyLogo />rlty.ai</a> — a forward deployed agency for the whole real estate value chain
+                                    managing partner building out <a href="https://www.rlty.ai/" target="_blank" rel="noopener noreferrer"><RltyLogo />rlty.ai</a>
                                 </li>
                                 <li>
-                                    deployed <a href="https://www.with.haus" target="_blank" rel="noopener noreferrer"><HausLogo />with.haus</a> — an ai operations company for staging operations
+                                    deployed ai operations at <a href="https://www.with.haus" target="_blank" rel="noopener noreferrer"><HausLogo />with.haus</a>
                                 </li>
                                 <li>
-                                    founding engineer at <a href="https://www.nura.construction" target="_blank" rel="noopener noreferrer"><NuraLogo />nura.construction</a> — built the mvp to production, got no equity
-                                </li>
-                                <li>
-                                    founding design partner at <span className="company-name" role="img" aria-label="vølund"><VolundLogo /></span> — building an agnostic design engineering firm for all frontiers
+                                    prev founding eng <a href="https://www.nura.construction" target="_blank" rel="noopener noreferrer"><NuraLogo />nura.construction</a>
                                 </li>
                             </ul>
                         </div>
