@@ -1,6 +1,6 @@
 // src/pages/Home.js
 import React, { useEffect, useRef } from 'react';
-import { RltyLogo, HausLogo, NuraLogo } from '../components/CompanyLogos';
+import { RltyLogo, NuraLogo, VolundLogo } from '../components/CompanyLogos';
 import '../styles/Home.css';
 
 const logoMask = `url("${process.env.PUBLIC_URL}/ANDREW%20LOGO.png")`;
@@ -230,7 +230,7 @@ function Home() {
                                     managing partner building out <a href="https://www.rlty.ai/" target="_blank" rel="noopener noreferrer"><RltyLogo />rlty.ai</a>
                                 </li>
                                 <li>
-                                    deployed ai operations at <a href="https://www.with.haus" target="_blank" rel="noopener noreferrer"><HausLogo />with.haus</a>
+                                    founder of design firm at <a href="https://www.volund.design" target="_blank" rel="noopener noreferrer"><VolundLogo />volund.design</a>
                                 </li>
                                 <li>
                                     prev founding eng <a href="https://www.nura.construction" target="_blank" rel="noopener noreferrer"><NuraLogo />nura.construction</a>
