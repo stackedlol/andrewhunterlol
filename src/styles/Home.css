@@ -487,3 +487,9 @@ h1 {
     margin-right: 0.3em;
     vertical-align: -0.1em;
 }
+.experience-list .haj-logo {
+    width: calc(0.9em * 496 / 204);
+    background-color: currentColor;
+    -webkit-mask: var(--haj-fins) center / contain no-repeat;
+    mask: var(--haj-fins) center / contain no-repeat;
+}

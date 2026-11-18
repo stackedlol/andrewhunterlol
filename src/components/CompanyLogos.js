@@ -25,14 +25,10 @@ export function HausLogo() {
     );
 }
 
-export function NuraLogo() {
-    const half = 'M70 63 L198 63 L235 130 L272 63 L429 63 L429 85 Q429 233 280 233 L70 233 Z';
-    return (
-        <svg className="company-logo" viewBox="66 59 368 382" fill="currentColor" aria-hidden="true">
-            <path d={half} />
-            <path d={half} transform="rotate(180 250 250)" />
-        </svg>
-    );
+export function HajLogo() {
+    // The fins only exist as a PNG, so it's drawn as a mask over currentColor to match the SVG marks.
+    const fins = `url("${process.env.PUBLIC_URL}/haj-fins.png")`;
+    return <span className="company-logo haj-logo" style={{ '--haj-fins': fins }} aria-hidden="true" />;
 }
 
 export function VolundLogo() {
