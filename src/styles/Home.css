@@ -487,8 +487,11 @@ h1 {
     margin-right: 0.3em;
     vertical-align: -0.1em;
 }
+/* The fins are ~2.4x wider than tall, so they run shorter than the other marks to carry the same weight. */
 .experience-list .haj-logo {
-    width: calc(0.9em * 496 / 204);
+    height: 0.55em;
+    width: calc(0.55em * 496 / 204);
+    vertical-align: 0;
     background-color: currentColor;
     -webkit-mask: var(--haj-fins) center / contain no-repeat;
     mask: var(--haj-fins) center / contain no-repeat;

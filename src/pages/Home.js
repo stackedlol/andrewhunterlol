@@ -233,7 +233,7 @@ function Home() {
                                     founder of design firm at <a href="https://www.volund.design" target="_blank" rel="noopener noreferrer"><VolundLogo />volund.design</a>
                                 </li>
                                 <li>
-                                    learning to gamble @ <a href="https://www.haj.trading" target="_blank" rel="noopener noreferrer"><HajLogo />haj</a>
+                                    practicing my gambling skills at <a href="https://www.haj.trading" target="_blank" rel="noopener noreferrer"><HajLogo />haj</a>
                                 </li>
                             </ul>
                         </div>
