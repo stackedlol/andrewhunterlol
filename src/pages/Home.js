@@ -239,7 +239,7 @@ function Home() {
                         </div>
 
                         <div className="home-contact">
-                            <span>[<a href="mailto:andrew@rlty.ai">andrew@rlty.ai</a>]</span>
+                            <span>[<a href="https://github.com/stackedlol" target="_blank" rel="noopener noreferrer">github</a>]</span>
                             <span>[<a href="https://x.com/stackedlol" target="_blank" rel="noopener noreferrer">x</a>]</span>
                             <span>[<a href="https://calendly.com/realandrewhunter/rlty-partners-intro" target="_blank" rel="noopener noreferrer">book call</a>]</span>
                         </div>
